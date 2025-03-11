@@ -82,7 +82,7 @@ les contrôleurs :
 		- on supprime les éléments non utilisés de la requête (les book id qu'on génère en interne, et user id qu'on récupère autrement)
 		- important : on récupère en input le chemin vers le fichier qu'on va traiter
 		- on définit le nom du fichier en output sous format webp
-		- on prépare le fichier image
+		- on prépare le fichier image grâce à sharp (resize, webp, quality)
 		- le if(rating) n'était pas nécessaire mais je l'ai intégré en prévision d'un frontend fonctionnel dans ce sens
 		- on prépare le livre avec notamment le chemin de destination, l'userId récupéré par le middleware auth, les rating et averageRating
 		- on enregistre le livre
