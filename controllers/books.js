@@ -117,7 +117,6 @@ exports.deleteBook = (req, res, next) => {
 
 exports.createRating = (req, res, next) => {
     const bookObject = req.body;
-    console.log("bookObject: ", bookObject);
     delete bookObject._id;
     delete bookObject._userId;
     const rating = bookObject.rating;
@@ -139,11 +138,9 @@ exports.createRating = (req, res, next) => {
         book.ratings.push({userId: userId, grade: rating});
         const totalRatings = book.ratings.length;
         let sumRatings = 0;
-        console.log("Book Ratings: ", book.ratings);
         for (let ratin of book.ratings) {
             sumRatings += ratin.grade;
         }
-        console.log("somme ratings: ", sumRatings);
         book.averageRating = sumRatings / totalRatings;
         book.save()
             .then(() => res.status(201).json(book))
