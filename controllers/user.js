@@ -4,6 +4,19 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 exports.signup = (req, res, next) => {
+    // are the input ok ?
+    if (!req.body.email || !req.body.password) {
+        return res.status(400).json({ message: 'Email et mot de passe sont requis' });
+    }
+    // email format
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(req.body.email)) {
+        return res.status(400).json({ message: 'Format d\'email invalide' });
+    }
+    // password format
+    if (req.body.password.length < 8) {
+        return res.status(400).json({ message: 'Le mot de passe doit contenir au moins 8 caractères' });
+    }
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
             const user = new User({
